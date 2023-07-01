@@ -11,6 +11,22 @@ System Migrator is a GUI management tool for migrating data, programs and settin
 * Optional: Save system states (like btrfs snapshots, not for migrating distro)
 * Windows lol?
 
+### Scripts
+#### Flatpak
+* flatpak list --app --columns=application > flatpak-app-names.txt
+
+packages=""
+while IFS= read -r package; do
+  packages+="$package "
+done < flatpak-app-names.txt
+flatpak install $packages
+
+#### Gnome
+dconf dump / > gnome_saved_settings.dconf
+dconf load / < gnome_saved_settings.dconf
+il load potrebbe fallire, come importare solo le chiavi corrette e ignorare gli errori?
+
+
 ### Screenshots
 ![image](/uploads/todo/image.png)
 
